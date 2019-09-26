@@ -14,11 +14,28 @@ export class BookComponent implements OnInit {
     {id: 5, name: 'A Feast for Crows', isbn: '978-0553801507'}
   ];
 
-  selectedBook: Book;
+  selectedBook: Book = new Book();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  save(): void {
+    if (this.selectedBook.id) {
+      this.selectedBook = new Book();
+    } else {
+      this.selectedBook.id = this.createId();
+      this.books.push(this.selectedBook);
+    }
+  }
+
+  private createId(): number {
+    const lastBook = this.books[this.books.length - 1];
+    if (lastBook && lastBook.id) {
+      return lastBook.id + 1;
+    }
+    return 1;
   }
 
 }

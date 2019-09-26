@@ -1,3 +1,33 @@
+<form>
+
+  <div>
+    <label>
+      Name:<br>
+      <input name="name" [(ngModel)]="selectedBook.name" >
+    </label>
+  </div>
+
+  <br>
+
+  <div>
+    <label>
+      ISBN:<br>
+      <input name="isbn" [(ngModel)]="selectedBook.isbn" >
+    </label>
+  </div>
+
+  <br>
+
+  <div>
+    <button (click)="save()">
+      {{ selectedBook.id ? 'New' : 'Add' }}
+    </button>
+  </div>
+
+</form>
+
+<br>
+
 <table>
   <thead>
   <tr>
@@ -16,12 +46,3 @@
   </tbody>
 
 </table>
-
-<br>
-
-<div *ngIf="selectedBook">
-  <h2>Selected Book</h2>
-  <p>
-    <strong>{{ selectedBook.name }}</strong>
-  </p>
-</div>
