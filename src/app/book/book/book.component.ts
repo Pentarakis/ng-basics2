@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../model/book';
 
 @Component({
@@ -8,13 +8,11 @@ import { Book } from '../model/book';
 })
 export class BookComponent implements OnInit {
 
-  books: Book[] = [
-    {id: 3, name: 'A Storm of Swords', isbn: '978-0553106633'},
-    {id: 4, name: 'The Hedge Knight', isbn: '978-0976401100'},
-    {id: 5, name: 'A Feast for Crows', isbn: '978-0553801507'}
-  ];
+  @Input()
+  book: Book = new Book();
 
-  selectedBook: Book = new Book();
+  @Output()
+  addNewBook: EventEmitter<Book> = new EventEmitter<Book>();
 
   constructor() { }
 
@@ -22,20 +20,11 @@ export class BookComponent implements OnInit {
   }
 
   save(): void {
-    if (this.selectedBook.id) {
-      this.selectedBook = new Book();
+    if (this.book.id) {
+      this.book = new Book();
     } else {
-      this.selectedBook.id = this.createId();
-      this.books.push(this.selectedBook);
+      this.addNewBook.emit(this.book);
     }
-  }
-
-  private createId(): number {
-    const lastBook = this.books[this.books.length - 1];
-    if (lastBook && lastBook.id) {
-      return lastBook.id + 1;
-    }
-    return 1;
   }
 
 }
