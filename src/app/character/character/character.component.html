@@ -1,0 +1,27 @@
+<form>
+
+  <div>
+    <label>
+      Name:<br>
+      <input name="name" [(ngModel)]="character.name" >
+    </label>
+  </div>
+
+  <br>
+
+  <div>
+    <label>
+      ISBN:<br>
+      <input name="culture" [(ngModel)]="character.culture" >
+    </label>
+  </div>
+
+  <br>
+
+  <div>
+    <button (click)="save()">
+      {{ character.id ? 'New' : 'Add' }}
+    </button>
+  </div>
+
+</form>
