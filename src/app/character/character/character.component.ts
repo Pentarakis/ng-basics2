@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import { first } from 'rxjs/internal/operators/first';
+import { switchMap } from 'rxjs/internal/operators/switchMap';
+import { filter, pluck, takeUntil } from 'rxjs/operators';
 import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
@@ -9,36 +12,63 @@ import { Character } from '../model/character';
   templateUrl: './character.component.html',
   styleUrls: ['./character.component.scss']
 })
-export class CharacterComponent implements OnInit {
+export class CharacterComponent implements OnInit, OnDestroy {
 
   isCreateMode = true;
   character: Character = new Character();
+  destroy: Subject<boolean> = new Subject();
 
-  constructor(private route: ActivatedRoute, private characterService: CharacterService) {
+  constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService) {
 
-    this.route.params.pipe(first()).toPromise()
-      .then(params => {
-        const id = params.id;
-        if (id !== 'create') {
-          this.characterService.read(Number(id))
-            .then(response => response.json())
-            .catch(() => {
-              alert('Communication Error');
-              setTimeout(() => {
-                this.characterService.read(Number(id))
-                  .then(response => response.json())
-                  .then(character => this.character = character);
-              }, 2000);
-            })
-            .then(character => this.character = character);
+    this.route.params
+      .pipe(
+        pluck('id'),
+        filter(id => id !== 'create'),
+        switchMap((id: number) => this.characterService.read(Number(id))),
+        takeUntil(this.destroy)
+      )
+      .subscribe(
+        (character: Character) => {
+          this.isCreateMode = false;
+          this.character = character;
         }
-
-      });
+      );
   }
 
   ngOnInit() {
   }
 
   save(): void {
+    let savedCharacter$: Observable<Character>;
+
+    if (this.isCreateMode) {
+      savedCharacter$ = this.characterService.create(this.character);
+    } else {
+      savedCharacter$ = this.characterService.update(this.character);
+    }
+
+    savedCharacter$
+      .pipe(
+        filter(data => data !== null),
+        takeUntil(this.destroy)
+      )
+      .subscribe(
+        (character: Character) => {
+          this.router.navigate(['../'], {
+            relativeTo: this.route
+          });
+          if (character) {
+            alert('Success! ID: ' + character.id);
+          } else {
+            alert('Success!');
+          }
+        }
+      );
   }
+
+  ngOnDestroy(): void {
+    this.destroy.next(true);
+    this.destroy.complete();
+  }
+
 }

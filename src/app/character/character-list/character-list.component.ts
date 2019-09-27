@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Book } from '../../book/model/book';
 import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
@@ -10,18 +11,16 @@ import { Character } from '../model/character';
 })
 export class CharacterListComponent implements OnInit {
 
-  characters: Character[];
+  characters: Observable<Character[]>;
 
   displayedColumns: string[] = ['id', 'name', 'culture'];
 
-  constructor(private characterService: CharacterService) {
+  constructor(
+    private characterService: CharacterService) {
+
     this.characters = this.characterService.readAll();
   }
 
   ngOnInit() {
   }
-
-  showDetails(character: Character): void {
-  }
-
 }
