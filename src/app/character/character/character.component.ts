@@ -59,6 +59,7 @@ export class CharacterComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (character: Character) => {
+          this.form.reset();
           this.router.navigate(['../'], {
             relativeTo: this.route
           });
