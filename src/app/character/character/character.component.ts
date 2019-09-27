@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Character } from '../model/character';
 
 @Component({
@@ -10,7 +11,9 @@ export class CharacterComponent implements OnInit {
 
   character: Character = new Character();
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+    const id = Number(this.route.snapshot.params.id);
+  }
 
   ngOnInit() {
   }
