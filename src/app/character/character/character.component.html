@@ -1,27 +1,30 @@
-<form>
+<mat-card>
 
-  <div>
-    <label>
-      Name:<br>
-      <input name="name" [(ngModel)]="character.name" >
-    </label>
-  </div>
+  <mat-card-header>Edit Character</mat-card-header>
 
-  <br>
+  <mat-card-content>
+    <form>
 
-  <div>
-    <label>
-      ISBN:<br>
-      <input name="culture" [(ngModel)]="character.culture" >
-    </label>
-  </div>
+      <mat-form-field>
+        <input matInput name="name" placeholder="Name" [(ngModel)]="character.name" >
+      </mat-form-field>
 
-  <br>
+      <br>
 
-  <div>
-    <button (click)="save()">
-      {{ character.id ? 'New' : 'Add' }}
-    </button>
-  </div>
+      <mat-form-field>
+        <input matInput name="culture" placeholder="Culture" [(ngModel)]="character.culture" >
+      </mat-form-field>
 
-</form>
+      <br>
+
+      <div>
+        <button mat-raised-button color="primary" (click)="save()">
+          {{ character.id ? 'New' : 'Add' }}
+        </button>
+      </div>
+
+    </form>
+  </mat-card-content>
+
+</mat-card>
+
