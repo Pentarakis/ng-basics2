@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { first } from 'rxjs/internal/operators/first';
@@ -15,10 +16,14 @@ import { Character } from '../model/character';
 export class CharacterComponent implements OnInit, OnDestroy {
 
   isCreateMode = true;
-  character: Character = new Character();
+  // @ts-ignore
+  form: FormGroup;
   destroy: Subject<boolean> = new Subject();
 
-  constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService) {
+  constructor(private route: ActivatedRoute, private router: Router, private characterService: CharacterService, private fb: FormBuilder
+  ) {
+
+    this.initForm();
 
     this.route.params
       .pipe(
@@ -30,7 +35,7 @@ export class CharacterComponent implements OnInit, OnDestroy {
       .subscribe(
         (character: Character) => {
           this.isCreateMode = false;
-          this.character = character;
+          this.form.patchValue(character);
         }
       );
   }
@@ -42,9 +47,9 @@ export class CharacterComponent implements OnInit, OnDestroy {
     let savedCharacter$: Observable<Character>;
 
     if (this.isCreateMode) {
-      savedCharacter$ = this.characterService.create(this.character);
+      savedCharacter$ = this.characterService.create(this.form.getRawValue());
     } else {
-      savedCharacter$ = this.characterService.update(this.character);
+      savedCharacter$ = this.characterService.update(this.form.getRawValue());
     }
 
     savedCharacter$
@@ -69,6 +74,14 @@ export class CharacterComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy.next(true);
     this.destroy.complete();
+  }
+
+  private initForm(): void {
+    this.form = this.fb.group({
+      id: null,
+      name: [null, Validators.required],
+      culture: null
+    });
   }
 
 }
