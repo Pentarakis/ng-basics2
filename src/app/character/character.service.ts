@@ -6,6 +6,8 @@ import { Character } from './model/character';
 })
 export class CharacterService {
 
+  private readonly baseUrl = 'http://localhost:3000/characters';
+
   private readonly characters: Character[] = [
     { id: 1, name: 'Daenerys Targaryen', culture: 'Valyrian'},
     { id: 2, name: 'Jon Snow', culture: 'Northmen'}
@@ -17,7 +19,7 @@ export class CharacterService {
     return this.characters;
   }
 
-  read(id: number): (Character | undefined) {
-    return this.characters.find(character => character.id === id);
+  read(id: number): Promise<Response> {
+    return fetch(`${this.baseUrl}/${id}`);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/internal/operators/first';
 import { CharacterService } from '../character.service';
 import { Character } from '../model/character';
 
@@ -10,14 +11,29 @@ import { Character } from '../model/character';
 })
 export class CharacterComponent implements OnInit {
 
+  isCreateMode = true;
   character: Character = new Character();
 
   constructor(private route: ActivatedRoute, private characterService: CharacterService) {
-    const id = Number(this.route.snapshot.params.id);
-    const character = this.characterService.read(id);
-    if (character) {
-      this.character = character;
-    }
+
+    this.route.params.pipe(first()).toPromise()
+      .then(params => {
+        const id = params.id;
+        if (id !== 'create') {
+          this.characterService.read(Number(id))
+            .then(response => response.json())
+            .catch(() => {
+              alert('Communication Error');
+              setTimeout(() => {
+                this.characterService.read(Number(id))
+                  .then(response => response.json())
+                  .then(character => this.character = character);
+              }, 2000);
+            })
+            .then(character => this.character = character);
+        }
+
+      });
   }
 
   ngOnInit() {
