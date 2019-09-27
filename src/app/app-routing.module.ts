@@ -8,8 +8,11 @@ import { CharacterComponent } from './character/character/character.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'book', component: BookListComponent },
-  { path: 'character', component: CharacterListComponent },
-  { path: 'character/:id', component: CharacterComponent }
+  {
+    path: 'character',
+    loadChildren: () => import('./character/character.module')
+      .then(m => m.CharacterModule)
+  }
 ];
 
 @NgModule({
