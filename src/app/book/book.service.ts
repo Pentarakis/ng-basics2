@@ -9,7 +9,8 @@ export class BookService {
   books: Book[] = [
     {id: 3, name: 'A Storm of Swords', isbn: '978-0553106633'},
     {id: 4, name: 'The Hedge Knight', isbn: '978-0976401100'},
-    {id: 5, name: 'A Feast for Crows', isbn: '978-0553801507'}
+    {id: 5, name: 'A Feast for Crows', isbn: '978-0553801507'},
+    {id: 6, name: 'The Sworn Sword', isbn: '978-0785126508'}
   ];
 
   readAll(): Book[] {
