@@ -12,11 +12,6 @@ export class CharacterService {
 
   private readonly baseUrl = 'http://localhost:3000/characters';
 
-  private readonly characters: Character[] = [
-    { id: 1, name: 'Daenerys Targaryen', culture: 'Valyrian'},
-    { id: 2, name: 'Jon Snow', culture: 'Northmen'}
-  ];
-
   constructor(private httpClient: HttpClient) { }
 
   readAll(): Observable<Character[]> {

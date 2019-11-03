@@ -4,7 +4,7 @@ import { Book } from '../model/book';
 @Component({
   selector: 'ngb-book-list',
   templateUrl: './book-list.component.html',
-  styleUrls: ['./book-list.component.scss']
+  styleUrls: ['./book-list.component.scss'],
 })
 export class BookListComponent implements OnInit {
 
