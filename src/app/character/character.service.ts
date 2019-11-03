@@ -17,12 +17,7 @@ export class CharacterService {
   readAll(): Observable<Character[]> {
     return this.httpClient
       .get<Character[]>(`${this.baseUrl}?_start=20&_end=120`)
-      .pipe(
-        catchError(() => {
-          this.handleError('Fehler beim Laden der Characters!');
-          return of([]);
-        })
-      );
+      ;
   }
 
   read(id: number): Observable<Character> {
