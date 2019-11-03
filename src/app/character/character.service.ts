@@ -10,7 +10,7 @@ import { Character } from './model/character';
 })
 export class CharacterService {
 
-  private readonly baseUrl = 'http://localhost:3000/characters';
+  protected readonly baseUrl = 'http://localhost:3000/characters';
 
   constructor(private httpClient: HttpClient) { }
 

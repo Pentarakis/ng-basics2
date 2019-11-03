@@ -1,10 +1,6 @@
-import { Injectable } from '@angular/core';
 import { BookService } from './book.service';
 import { Book } from './model/book';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class BookServiceStub implements BookService {
 
   books: Book[]
