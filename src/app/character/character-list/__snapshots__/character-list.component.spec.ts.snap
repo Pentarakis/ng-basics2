@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CharacterListComponent should render MatTable 1`] = `
+<ngb-character-list
+  characterService={[Function CharacterServiceStub]}
+  characters={[Function Subject]}
+  displayedColumns={[Function Array]}
+>
+  <button
+    class="mat-raised-button mat-button-base mat-primary"
+    color="primary"
+    mat-raised-button=""
+    routerlink="create"
+    tabindex="0"
+  >
+    <span
+      class="mat-button-wrapper"
+    >
+       Create
+  
+    </span>
+    <div
+      class="mat-button-ripple mat-ripple"
+      matripple=""
+    />
+    <div
+      class="mat-button-focus-overlay"
+    />
+  </button><br /><br /><table
+    class="mat-elevation-z8 mat-table"
+    mat-table=""
+    role="grid"
+  >
+    <thead
+      role="rowgroup"
+    >
+      
+      <tr
+        class="mat-header-row"
+        mat-header-row=""
+        role="row"
+      >
+        
+        <th
+          class="mat-header-cell cdk-column-id mat-column-id"
+          mat-header-cell=""
+          role="columnheader"
+        >
+           ID 
+        </th>
+        <th
+          class="mat-header-cell cdk-column-name mat-column-name"
+          mat-header-cell=""
+          role="columnheader"
+        >
+           Name 
+        </th>
+        <th
+          class="mat-header-cell cdk-column-culture mat-column-culture"
+          mat-header-cell=""
+          role="columnheader"
+        >
+           Culture 
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      role="rowgroup"
+    >
+      
+      <tr
+        class="mat-row"
+        mat-row=""
+        role="row"
+        tabindex="0"
+      >
+        
+        <td
+          class="mat-cell cdk-column-id mat-column-id"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+        <td
+          class="mat-cell cdk-column-name mat-column-name"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+        <td
+          class="mat-cell cdk-column-culture mat-column-culture"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+      </tr>
+      <tr
+        class="mat-row"
+        mat-row=""
+        role="row"
+        tabindex="0"
+      >
+        
+        <td
+          class="mat-cell cdk-column-id mat-column-id"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+        <td
+          class="mat-cell cdk-column-name mat-column-name"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+        <td
+          class="mat-cell cdk-column-culture mat-column-culture"
+          mat-cell=""
+          role="gridcell"
+        >
+           
+        </td>
+      </tr>
+    </tbody>
+    <tfoot
+      class="mat-table-sticky"
+      role="rowgroup"
+      style="display: none; bottom: 0px; position: sticky; z-index: 10;"
+    >
+      
+    </tfoot>
+  </table>
+</ngb-character-list>
+`;
