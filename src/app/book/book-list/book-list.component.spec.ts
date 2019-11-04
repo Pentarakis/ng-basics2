@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookListComponent } from './book-list.component';
@@ -9,8 +9,7 @@ describe('BookListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookListComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [ BookListComponent, BookComponentStub ]
     })
     .compileComponents();
   }));
@@ -24,4 +23,17 @@ describe('BookListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it ('should load books using BookService', () => {
+    expect(component.books).toEqual(undefined);
+  });
+
+  @Component({
+    selector: 'ngb-book',
+    template: ''
+  })
+  class BookComponentStub {
+    @Input()
+    book;
+  }
 });
